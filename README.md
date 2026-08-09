@@ -14,6 +14,6 @@ A Salesforce application that automates subscription lifecycle management, inclu
 ## Tech Stack
 - Salesforce Platform
 - Flow Builder
-- Apex (Coming Soon)
-- Lightning Web Components (Coming Soon)
+- Apex
+- Lightning Web Components
 - Git & GitHub
