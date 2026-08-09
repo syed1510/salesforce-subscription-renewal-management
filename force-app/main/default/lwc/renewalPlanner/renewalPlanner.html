@@ -1,0 +1,58 @@
+<template>
+
+    <lightning-card
+        title="Renewal Planner"
+        icon-name="standard:opportunity">
+
+        <div class="slds-p-around_medium">
+
+            <template if:true={subscriptions.length}>
+
+                <lightning-datatable
+                    key-field="Id"
+                    data={subscriptions}
+                    columns={columns}
+                    max-row-selection="1"
+                    onrowselection={handleRowSelection}>
+                </lightning-datatable>
+
+                <div class="slds-m-top_medium">
+
+                    <lightning-button
+                        variant="brand"
+                        label="Prepare Renewal"
+                        onclick={handlePrepareRenewal}
+                        disabled={isLoading}>
+                    </lightning-button>
+
+                </div>
+
+            </template>
+
+            <template if:false={subscriptions.length}>
+
+                <p>
+                    No active subscriptions found for this Account.
+                </p>
+
+            </template>
+
+            <template if:true={error}>
+
+                <div class="slds-text-color_error slds-m-top_small">
+                    Unable to load subscriptions.
+                </div>
+
+            </template>
+
+        </div>
+
+        <template if:true={isLoading}>
+            <lightning-spinner
+                alternative-text="Preparing renewal">
+            </lightning-spinner>
+        </template>
+
+    </lightning-card>
+
+</template>

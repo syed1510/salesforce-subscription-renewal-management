@@ -1,0 +1,68 @@
+<template>
+
+    <lightning-card title="Subscription Summary" icon-name="standard:contract">
+
+        <div class="slds-p-around_medium">
+
+            <div class="slds-m-bottom_medium">
+                <p class="slds-text-title">Active Recurring Value</p>
+
+                <p class="slds-text-heading_large">
+                    {formattedRecurringValue}
+                </p>
+            </div>
+
+            <template if:true={hasSubscriptions}>
+
+                <p class="slds-text-title slds-m-bottom_small">
+                    Upcoming Renewals
+                </p>
+
+                <template for:each={subscriptions} for:item="subscription">
+
+                    <div
+                        key={subscription.Id}
+                        class="slds-box slds-m-bottom_small"
+                    >
+
+                        <p class="slds-text-heading_small">
+                            {subscription.Name}
+                        </p>
+
+                        <p>
+                            Renewal Date:
+                            <lightning-formatted-date-time
+                                value={subscription.Renewal_Date__c}
+                                year="numeric"
+                                month="short"
+                                day="2-digit">
+                            </lightning-formatted-date-time>
+                        </p>
+
+                    </div>
+
+                </template>
+
+            </template>
+
+            <template if:false={hasSubscriptions}>
+
+                <p>
+                    No active subscriptions found for this Account.
+                </p>
+
+            </template>
+
+            <template if:true={error}>
+
+                <p class="slds-text-color_error">
+                    Unable to load subscription information.
+                </p>
+
+            </template>
+
+        </div>
+
+    </lightning-card>
+
+</template>
