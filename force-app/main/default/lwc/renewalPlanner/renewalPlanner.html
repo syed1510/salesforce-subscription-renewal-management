@@ -30,11 +30,11 @@
             </template>
 
             <template if:false={subscriptions.length}>
-
-                <p>
-                    No active subscriptions found for this Account.
-                </p>
-
+                <template if:false={error}>
+                    <p>
+                        No active subscriptions found for this Account.
+                    </p>
+                </template>
             </template>
 
             <template if:true={error}>

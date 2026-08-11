@@ -1,29 +1,45 @@
 <template>
+    <lightning-card
+        title="Subscription Summary"
+        icon-name="standard:contract">
 
-    <lightning-card title="Subscription Summary" icon-name="standard:contract">
+        <!-- Loading State -->
+        <template if:true={isLoading}>
+            <div class="slds-is-relative slds-p-around_medium">
+                <lightning-spinner
+                    alternative-text="Loading subscription information">
+                </lightning-spinner>
+            </div>
+        </template>
 
+        <!-- Main Content -->
         <div class="slds-p-around_medium">
 
+            <!-- Active Recurring Value -->
             <div class="slds-m-bottom_medium">
-                <p class="slds-text-title">Active Recurring Value</p>
+                <p class="slds-text-title">
+                    Active Recurring Value
+                </p>
 
                 <p class="slds-text-heading_large">
                     {formattedRecurringValue}
                 </p>
             </div>
 
+            <!-- Subscriptions -->
             <template if:true={hasSubscriptions}>
 
                 <p class="slds-text-title slds-m-bottom_small">
                     Upcoming Renewals
                 </p>
 
-                <template for:each={subscriptions} for:item="subscription">
+                <template
+                    for:each={subscriptions}
+                    for:item="subscription">
 
                     <div
                         key={subscription.Id}
-                        class="slds-box slds-m-bottom_small"
-                    >
+                        class="slds-box slds-m-bottom_small">
 
                         <p class="slds-text-heading_small">
                             {subscription.Name}
@@ -31,6 +47,7 @@
 
                         <p>
                             Renewal Date:
+
                             <lightning-formatted-date-time
                                 value={subscription.Renewal_Date__c}
                                 year="numeric"
@@ -45,24 +62,23 @@
 
             </template>
 
+            <!-- Empty State -->
             <template if:false={hasSubscriptions}>
-
-                <p>
-                    No active subscriptions found for this Account.
-                </p>
-
+                <template if:false={error}>
+                    <p>
+                        No active subscriptions found for this Account.
+                    </p>
+                </template>
             </template>
 
+            <!-- Error State -->
             <template if:true={error}>
-
                 <p class="slds-text-color_error">
                     Unable to load subscription information.
                 </p>
-
             </template>
 
         </div>
 
     </lightning-card>
-
 </template>

@@ -7,10 +7,13 @@ export default class SubscriptionSummary extends LightningElement {
 
     activeRecurringValue = 0;
     subscriptions = [];
+    isLoading = true;
     error;
 
     @wire(getSummary, { accountId: '$recordId' })
     wiredSummary({ data, error }) {
+
+        this.isLoading = false;
 
         if (data) {
             this.activeRecurringValue = data.activeRecurringValue;
